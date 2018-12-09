@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { ReactComponent as Loading } from 'components/LoadingIcon.svg';
 import CurrencyRow from 'components/CurrencyRow';
 
-const CurrencyTable = ({ loading, rows, status }) => {
+const CurrencyTable = ({ loading, status, ...rest }) => {
   let emptyTable = [];
   for (let i = 0; i < 5; i++) {
     emptyTable.push(<div key={i} className="row table-row" />);
@@ -20,7 +21,7 @@ const CurrencyTable = ({ loading, rows, status }) => {
     );
   }
 
-  if (rows.length === 0) {
+  if (!rest.rows) {
     return (
       <React.Fragment>
         <div className="message-overlay">
@@ -31,18 +32,26 @@ const CurrencyTable = ({ loading, rows, status }) => {
     );
   }
 
+  const data = Object.keys(rest.rows.rates).map(val => {
+    return {
+      symbol: '$',
+      currency: val,
+      currentRate: rest.rows.rates[val],
+      previousRate: 1
+    };
+  });
+
   return (
     <React.Fragment>
-      {rows.map(row => (
-        <CurrencyRow key={row.symbol} data={row} />
+      {data.map(row => (
+        <CurrencyRow key={row.currency} data={row} />
       ))}
     </React.Fragment>
   );
 };
 
 CurrencyTable.propTypes = {
-  loading: PropTypes.bool.isRequired,
-  rows: PropTypes.array.isRequired
+  loading: PropTypes.bool.isRequired
 };
 
 CurrencyTable.defaultProps = {
@@ -50,4 +59,10 @@ CurrencyTable.defaultProps = {
   status: 'Checking Service…'
 };
 
-export default CurrencyTable;
+const mapStateToProps = state => {
+  return {
+    rows: state.currentRates[state.base]
+  };
+};
+
+export default connect(mapStateToProps)(CurrencyTable);

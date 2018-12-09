@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { ReactComponent as Loading } from 'components/LoadingIcon.svg';
 import CurrencyRow from 'components/CurrencyRow';
 
-const CurrencyTable = ({ loading, rows }) => {
+const CurrencyTable = ({ loading, rows, status }) => {
   let emptyTable = [];
   for (let i = 0; i < 5; i++) {
     emptyTable.push(<div key={i} className="row table-row" />);
@@ -11,28 +11,32 @@ const CurrencyTable = ({ loading, rows }) => {
 
   if (loading) {
     return (
-      <div className="container">
+      <React.Fragment>
+        <div className="message-overlay">
+          <Loading />
+        </div>
         {emptyTable}
-        <Loading />
-      </div>
+      </React.Fragment>
     );
   }
 
   if (rows.length === 0) {
     return (
-      <div className="container">
-        <div className="message-overlay">No Results</div>
+      <React.Fragment>
+        <div className="message-overlay">
+          <span className="lead text-black-50 p-3">{status}</span>
+        </div>
         {emptyTable}
-      </div>
+      </React.Fragment>
     );
   }
 
   return (
-    <div className="container">
+    <React.Fragment>
       {rows.map(row => (
         <CurrencyRow key={row.symbol} data={row} />
       ))}
-    </div>
+    </React.Fragment>
   );
 };
 
@@ -42,7 +46,8 @@ CurrencyTable.propTypes = {
 };
 
 CurrencyTable.defaultProps = {
-  loading: false
+  loading: false,
+  status: 'Checking Service…'
 };
 
 export default CurrencyTable;

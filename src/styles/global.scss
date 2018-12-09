@@ -1,0 +1,36 @@
+body,
+html,
+#root {
+  min-height: calc(100vh - 80px);
+}
+
+body > nav {
+  height: 80px;
+
+  .navbar-brand {
+    height: 100%;
+    width: auto;
+
+    > img {
+      display: block;
+      height: 100%;
+      width: auto;
+    }
+  }
+}
+
+.message-overlay {
+  background: rgba($white, 0.7);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  span {
+    background: rgba($white, 0.7);
+  }
+}

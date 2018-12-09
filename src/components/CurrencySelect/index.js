@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
 const CurrencySelect = ({ options, change }) => {
   return (
@@ -11,6 +11,7 @@ const CurrencySelect = ({ options, change }) => {
       <option value="Select" disabled>
         Select…
       </option>
+      <option value="EUR">EUR</option>
       {options.map(option => (
         <option key={option} value={option}>
           {option}

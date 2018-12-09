@@ -3,3 +3,14 @@
   min-height: 30px;
   padding: 8px 12px;
 }
+
+.trending {
+  svg {
+    fill: $success;
+
+    &.down {
+      transform: rotate(180deg);
+      fill: $danger;
+    }
+  }
+}

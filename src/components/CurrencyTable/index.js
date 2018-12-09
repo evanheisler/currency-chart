@@ -1,8 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { ReactComponent as Loading } from 'components/LoadingIcon.svg';
-import CurrencyRow from 'components/CurrencyRow';
+import React from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import getSymbolFromCurrency from "currency-symbol-map";
+import { ReactComponent as Loading } from "components/LoadingIcon.svg";
+import CurrencyRow from "components/CurrencyRow";
 
 const CurrencyTable = ({ loading, status, ...rest }) => {
   let emptyTable = [];
@@ -34,10 +35,10 @@ const CurrencyTable = ({ loading, status, ...rest }) => {
 
   const data = Object.keys(rest.rows.rates).map(val => {
     return {
-      symbol: '$',
+      symbol: getSymbolFromCurrency(val),
       currency: val,
       currentRate: rest.rows.rates[val],
-      previousRate: 1
+      previousRate: rest.previous.rates[val]
     };
   });
 
@@ -56,12 +57,13 @@ CurrencyTable.propTypes = {
 
 CurrencyTable.defaultProps = {
   loading: false,
-  status: 'Checking Service…'
+  status: "Checking Service…"
 };
 
 const mapStateToProps = state => {
   return {
-    rows: state.currentRates[state.base]
+    rows: state.currentRates[state.base],
+    previous: state.previousRates[state.base]
   };
 };
 

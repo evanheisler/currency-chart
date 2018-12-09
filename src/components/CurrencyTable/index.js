@@ -5,7 +5,7 @@ import getSymbolFromCurrency from "currency-symbol-map";
 import { ReactComponent as Loading } from "components/LoadingIcon.svg";
 import CurrencyRow from "components/CurrencyRow";
 
-const CurrencyTable = ({ loading, status, ...rest }) => {
+const CurrencyTable = ({ loading, status, conversionValue, ...rest }) => {
   let emptyTable = [];
   for (let i = 0; i < 5; i++) {
     emptyTable.push(<div key={i} className="row table-row" />);
@@ -45,14 +45,16 @@ const CurrencyTable = ({ loading, status, ...rest }) => {
   return (
     <React.Fragment>
       {data.map(row => (
-        <CurrencyRow key={row.currency} data={row} />
+        <CurrencyRow key={row.currency} data={row} sample={conversionValue} />
       ))}
     </React.Fragment>
   );
 };
 
 CurrencyTable.propTypes = {
-  loading: PropTypes.bool.isRequired
+  loading: PropTypes.bool.isRequired,
+  status: PropTypes.string,
+  conversionValue: PropTypes.number
 };
 
 CurrencyTable.defaultProps = {

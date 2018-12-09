@@ -9,6 +9,7 @@ import {
 import CurrencyTable from "components/CurrencyTable";
 import CurrencySelect from "components/CurrencySelect";
 import Modal from "components/Modal";
+import CurrencyHeader from "components/CurrencyHeader";
 
 class ExchangeRates extends Component {
   state = {
@@ -18,7 +19,8 @@ class ExchangeRates extends Component {
     modal: {
       show: false,
       msg: ""
-    }
+    },
+    conversionValue: 1500
   };
 
   componentDidMount() {
@@ -36,7 +38,7 @@ class ExchangeRates extends Component {
               status: "Please select a base currency"
             });
           })
-          .catch(err => {
+          .catch(() => {
             this.setState({
               loading: false,
               modal: {
@@ -71,8 +73,14 @@ class ExchangeRates extends Component {
     }
   };
 
+  handleConversionValue = e => {
+    this.setState({
+      conversionValue: parseInt(e.target.value, 10)
+    });
+  };
+
   render() {
-    const { loading, status, currencies, modal } = this.state;
+    const { loading, status, currencies, modal, conversionValue } = this.state;
 
     return (
       <div className="container">
@@ -89,8 +97,18 @@ class ExchangeRates extends Component {
           </div>
         </div>
         <div className="row">
-          <div className="col-10 mx-auto py-5 bg-white rounded">
-            <CurrencyTable loading={loading} status={status} />
+          <div className="col-10 mx-auto mb-5 pb-5 bg-white rounded">
+            <CurrencyHeader
+              base={this.props.base}
+              conversionValue={conversionValue}
+              change={this.handleConversionValue}
+            />
+
+            <CurrencyTable
+              loading={loading}
+              status={status}
+              conversionValue={conversionValue}
+            />
           </div>
         </div>
         {modal.show && (
@@ -113,7 +131,8 @@ class ExchangeRates extends Component {
 }
 
 const mapStateToProps = state => ({
-  availableRates: state.currentRates
+  availableRates: state.currentRates,
+  base: state.base
 });
 
 export default connect(

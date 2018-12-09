@@ -20,12 +20,13 @@ const CurrencyRow = ({
 
   return (
     <div className="row table-row">
-      <div className="col-4">{currency}</div>
+      <div className="col-2">{currency}</div>
       <div className="col-3">{currentRate}</div>
       <div className="col-2 trending">{trending}</div>
-      <div className="col-3">{`${symbol}${(
-        parseInt(sample, 10) * currentRate
-      ).toFixed(2)}`}</div>
+      <div className="col-4 offset-md-1 converted-value">
+        <span className="mr-1 text-muted">{symbol}</span>
+        {(sample * currentRate).toFixed(2)}
+      </div>
     </div>
   );
 };
@@ -37,7 +38,7 @@ CurrencyRow.propTypes = {
     currentRate: PropTypes.number.isRequired,
     previousRate: PropTypes.number
   }),
-  sample: PropTypes.string
+  sample: PropTypes.number
 };
 
 CurrencyRow.defaultProps = {

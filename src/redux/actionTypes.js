@@ -1,0 +1,1 @@
+export const SET_EXCHANGE_RATES = 'SET_EXCHANGE_RATES';

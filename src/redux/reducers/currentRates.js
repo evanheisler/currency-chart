@@ -11,7 +11,7 @@ export default function(state = initialState, action) {
         ...state,
         [base]: {
           date,
-          ...rates
+          rates
         }
       };
     }

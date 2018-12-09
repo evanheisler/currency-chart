@@ -1,18 +1,23 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { setExchangeRates, setBase, getExchangeData } from 'redux/actions';
-import CurrencyTable from 'components/CurrencyTable';
-import CurrencySelect from 'components/CurrencySelect';
-import Modal from 'components/Modal';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import {
+  setExchangeRates,
+  setPreviousRates,
+  setBase,
+  getExchangeData
+} from "redux/actions";
+import CurrencyTable from "components/CurrencyTable";
+import CurrencySelect from "components/CurrencySelect";
+import Modal from "components/Modal";
 
 class ExchangeRates extends Component {
   state = {
-    status: '',
+    status: "",
     loading: false,
     currencies: [],
     modal: {
       show: false,
-      msg: ''
+      msg: ""
     }
   };
 
@@ -20,7 +25,7 @@ class ExchangeRates extends Component {
     this.setState(
       {
         loading: true,
-        status: 'Checking Service…'
+        status: "Checking Service…"
       },
       () => {
         getExchangeData()
@@ -28,7 +33,7 @@ class ExchangeRates extends Component {
             this.setState({
               loading: false,
               currencies: Object.keys(res.rates).map(cur => cur),
-              status: 'Please select a base currency'
+              status: "Please select a base currency"
             });
           })
           .catch(err => {
@@ -37,7 +42,7 @@ class ExchangeRates extends Component {
               modal: {
                 show: true,
                 msg:
-                  'Sorry we are having trouble connecting or that currency is not available. Please try again.'
+                  "Sorry we are having trouble connecting or that currency is not available. Please try again."
               }
             });
           });
@@ -49,9 +54,19 @@ class ExchangeRates extends Component {
     if (this.props.availableRates[base]) {
       this.props.setBase(base);
     } else {
-      getExchangeData(base).then(resp => {
-        this.props.setExchangeRates(resp);
-        this.props.setBase(base);
+      getExchangeData(base).then(currentData => {
+        let previousDate = new Date(currentData.date);
+        previousDate.setDate(previousDate.getDate() - 1);
+        previousDate = previousDate.toISOString().split("T")[0];
+
+        getExchangeData(base, previousDate)
+          .then(prevData => {
+            this.props.setPreviousRates(prevData);
+          })
+          .then(() => {
+            this.props.setExchangeRates(currentData);
+            this.props.setBase(base);
+          });
       });
     }
   };
@@ -103,5 +118,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { setExchangeRates, setBase }
+  { setExchangeRates, setPreviousRates, setBase }
 )(ExchangeRates);

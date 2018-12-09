@@ -1,4 +1,4 @@
-import { SET_EXCHANGE_RATES } from '../actionTypes';
+import { SET_EXCHANGE_RATES } from "../actionTypes";
 
 const initialState = {};
 

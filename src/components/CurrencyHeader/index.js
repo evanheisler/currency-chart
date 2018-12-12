@@ -5,10 +5,12 @@ import getSymbolFromCurrency from "currency-symbol-map";
 const CurrencyHeader = ({ base, conversionValue, change }) => {
   return (
     <div className="row table-heading">
-      <div className="col-2">Origin</div>
-      <div className="col-3">Rate</div>
-      <div className="col-2">Trending</div>
-      <div className="col-4 offset-md-1">
+      <div className="col-2 px-1">Origin</div>
+      <div className="col-3 px-1"> Rate </div>
+      <div className="col-2 px-1">
+        <span className="d-none d-sm-block">Trending</span>
+      </div>
+      <div className="col-4 offset-md-1 px-1">
         <div className="input-group">
           <div className="input-group-prepend">
             <span className="input-group-text">

@@ -20,10 +20,10 @@ const CurrencyRow = ({
 
   return (
     <div className="row table-row">
-      <div className="col-2">{currency}</div>
-      <div className="col-3">{currentRate}</div>
-      <div className="col-2 trending">{trending}</div>
-      <div className="col-4 offset-md-1 converted-value">
+      <div className="col-2 px-1">{currency}</div>
+      <div className="col-3 px-1">{currentRate}</div>
+      <div className="col-2 trending px-1">{trending}</div>
+      <div className="col-4 offset-md-1 converted-value px-1">
         <span className="mr-1 text-muted">{symbol}</span>
         {(sample * currentRate).toFixed(2)}
       </div>

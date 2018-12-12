@@ -87,7 +87,7 @@ export class ExchangeRates extends Component {
         <div className="row">
           <div className="col-10 mx-auto">
             <div className="row mt-5 mb-2">
-              <div className="col-4 ml-auto pr-0 text-right">
+              <div className="col col-md-4 ml-auto px-0 text-right">
                 <CurrencySelect
                   options={currencies}
                   change={this.handleCurrencyChange}

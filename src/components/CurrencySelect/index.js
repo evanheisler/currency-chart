@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 const CurrencySelect = ({ options, change }) => {
   return (
     <select
-      className="bg-white"
+      className="bg-white form-control"
       defaultValue="Select"
       onChange={e => change(e.target.value)}
     >

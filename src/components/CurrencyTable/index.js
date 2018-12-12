@@ -5,7 +5,12 @@ import getSymbolFromCurrency from "currency-symbol-map";
 import { ReactComponent as Loading } from "components/LoadingIcon.svg";
 import CurrencyRow from "components/CurrencyRow";
 
-const CurrencyTable = ({ loading, status, conversionValue, ...rest }) => {
+export const CurrencyTable = ({
+  loading,
+  status,
+  conversionValue,
+  ...rest
+}) => {
   let emptyTable = [];
   for (let i = 0; i < 5; i++) {
     emptyTable.push(<div key={i} className="row table-row" />);

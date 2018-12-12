@@ -48,7 +48,7 @@ CurrencyRow.defaultProps = {
     currentRate: 0,
     previousRate: 0
   },
-  sample: ""
+  sample: 0
 };
 
 export default CurrencyRow;

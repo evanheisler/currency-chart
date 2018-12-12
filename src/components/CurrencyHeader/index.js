@@ -37,4 +37,10 @@ CurrencyHeader.propTypes = {
   change: PropTypes.func.isRequired
 };
 
+CurrencyHeader.defaultProps = {
+  base: "",
+  conversionValue: 0,
+  change: () => {}
+};
+
 export default CurrencyHeader;

@@ -11,7 +11,8 @@ const CurrencySelect = ({ options, change }) => {
       <option value="Select" disabled>
         Select…
       </option>
-      <option value="EUR">EUR</option>
+
+      {options.length > 0 && <option value="EUR">EUR</option>}
       {options.map(option => (
         <option key={option} value={option}>
           {option}

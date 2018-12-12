@@ -11,7 +11,7 @@ import CurrencySelect from "components/CurrencySelect";
 import Modal from "components/Modal";
 import CurrencyHeader from "components/CurrencyHeader";
 
-class ExchangeRates extends Component {
+export class ExchangeRates extends Component {
   state = {
     status: "",
     loading: false,
